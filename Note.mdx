@@ -240,3 +240,31 @@ function test(a, b) {
 
 It mean if the last element has comma there is not problem in js
 
+## Optional Catch Binding
+
+Allow you to omit the error parameter if it is not needed , simplifying the code and making it cleaner.
+
+```js
+try {
+  // some code might throw
+} catch (error) {
+  console.error("An error occurred");
+}
+
+try {
+  // some code that might throw 
+}catch (e) {
+  // do nothing
+}
+```
+
+we can remove (e) or (error) like below because sometimes you want to do thing and leaving that e will throw error in older version 
+but now it's optional and you can do like this 
+
+```js 
+try {
+  // some code that might throw 
+}catch (e) {
+  // do nothing
+}
+```
