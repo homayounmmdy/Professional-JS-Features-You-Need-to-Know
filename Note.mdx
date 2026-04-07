@@ -220,4 +220,23 @@ globalThis.setTimeout(() => {
 globalThis.addEventLister("fetch", () => {});
 ```
 
+### Trailing commas
+
+allow for cleaner diffs when adding or removing items from array, objects , or  
+function parameters. They are ignored in the syntax, making it easier to manage list of items
+
+```js
+const arr = [1, 2];
+
+const obj = {
+  name: "john",
+  age: 30,
+};
+
+function test(a, b) {
+  return a + b;
+}
+```
+
+It mean if the last element has comma there is not problem in js
 
