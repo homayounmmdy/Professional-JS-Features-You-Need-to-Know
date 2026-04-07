@@ -95,3 +95,89 @@ To know the ECMAScript version that your engine uses:
   - ES.Next
   - JSX and non-standard superset
 
+# Recap of ES2015 (ES6)
+
+- It was one of the major upgrades to the language
+- It's safe to use it on every browser today
+- Class syntax for OPP
+- Block scooped variable definitions
+- ES Modules
+- Arrow functions
+- Promises
+- And many more features!
+
+> We will leave some advanced ES6 topics for later , organized by topics
+
+## ES Modules
+
+Standardized way to organize and reuse JavaScript code across different files using
+import and export statements for better modularity and maintainability.
+
+### Working with different files in classic ES5 mode
+
+- They use the same global context
+- One script can't include or load other script (worker exception)
+- Can't modularize behavior or data
+- Node.js used the CommonJS pattern to emulate modules
+
+![](./images/before_module_example.png);
+
+### ES Modules
+
+- ES6 included Modules
+- They work as a container isolated from the global object (window , global , self)
+- For node: it's living together with CommonJS modules using require().
+- Each module works in a separate file
+  - For the browser ".js"
+  - For the node , ".mjs" by default
+- The global scope creates a module import tree as soon as it's parsing modules
+- A module can export items:
+  - Variable
+  - Function
+  - Class declarations
+  - Object
+- It can have oen default import
+- A module can import other module's items totally or partially
+
+> Check on every platform and context how to enable modules for your script.
+
+#### Modules in the window context
+
+```js
+<script src="app.js" type="module"></script>
+```
+
+#### Modules in a Worker context
+
+```js
+new Worker("worker.js", { type: "module" });
+```
+
+#### Modules in a Service Worker context
+
+```js
+navigator.serviceWorker.register("sw.js", { type: "module" });
+```
+
+#### Modules in Node
+
+they are 3 way to do this
+
+first in the script
+
+```js
+import from "module.mjs"
+```
+
+second in the terminal
+
+```js
+node script.js --input-type module
+```
+
+third way in package.json file
+
+```js
+{... "type": "module" ...}
+```
+
