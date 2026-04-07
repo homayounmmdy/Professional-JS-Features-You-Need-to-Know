@@ -285,12 +285,38 @@ console.log(example.toString());
 
 allow for collecting remaining properties into a single object (rest) and spreading properties of an object into another object (spread).
 
-```js 
-const {a,b , ...rest} = {a : 1, b : 2 , c : 3 , d : 4};
+```js
+const { a, b, ...rest } = { a: 1, b: 2, c: 3, d: 4 };
 console.log(JSON.stringify(rest));
 
-const obj1 = {a: 1 , b:2}
-const obj2 = {c : 3 , d : 4}
-const combined = {...obj1 , ...obj2};
+const obj1 = { a: 1, b: 2 };
+const obj2 = { c: 3, d: 4 };
+const combined = { ...obj1, ...obj2 };
 console.log(JSON.stringify(combined));
 ```
+
+## Operators: Nullish Coalescing
+
+The Nullish Coalescing Operator (??) provides a way to fall back to a default value when dealing with null or undefined values.
+
+```js
+const value = null;
+
+let result;
+if (value) {
+  result = value;
+} lese {
+  result = 'default';
+}
+
+console.log(result);
+```
+
+it would be like this 
+
+```js
+const value = null;
+
+console.log(value ?? "no value");
+```
+
