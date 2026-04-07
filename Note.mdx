@@ -182,3 +182,42 @@ third way in package.json file
 ```
 
 > In loading js it has to phase first check for keyword like function , import , variable and stuff like that then it put those in table and start executing that is way hosting is happened
+
+> We won't feature by ES version but by category, explaining for each one from which version it's available (ES2016-ES2024)
+
+## Language Enhancements
+
+- Small changes
+- GlobalThis
+- Optional Catch Binding
+- Function toString
+- New Operators
+- Class Declaration
+- Object
+- String
+- Numbers
+
+### GlobalThis
+
+if we run our code on browser the the global this would be window if is node it's object and etc in new recent
+we have GlobalThis where it' just point to global no matter where our code executed
+
+```js
+window.scrollX = 10;
+global.setTimeout(() => {
+  (console.log("Hey"), 3000);
+});
+self.addEventLister("fetch", () => {});
+```
+
+we can do this
+
+```js
+globalThis.scrollX = 10;
+globalThis.setTimeout(() => {
+  (console.log("Hey"), 3000);
+});
+globalThis.addEventLister("fetch", () => {});
+```
+
+
