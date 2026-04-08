@@ -982,10 +982,53 @@ async function start() {
   try {
     var value = await doInSeconds(2);
     alert(value);
-  } catch (e) {
-    
+  } catch (e) {}
+}
+
+start();
+```
+
+## Promise Improvements
+
+we have Promise.allSettled() to handle multiple Promises
+
+```js
+const promises = [Promise.resolve("Success"), Promise.reject("Error")];
+Promise.allSettled(promises).then((results) => console.log(results));
+
+// use Promise.any() to get the first fulfilled Promise
+const value = await Promise.any(promises);
+```
+
+## Asynchronous Iteration
+
+allows for iteration over data source that return Promises, using the for..await of syntax.
+
+```js
+async function* asyncGenerator() {
+  yield "a";
+  yield "b";
+  yield "c";
+}
+
+async function start() {
+  for await (const value of asyncGenerator()) {
+    alert(value);
   }
 }
 
 start();
 ```
+
+## Top-level await
+
+allows the use of the await keyword outside of async function , at the top level
+of modules.
+
+```js 
+const response = await fetch("https://api.example.com/data");
+const data = await response.json();
+console.log(data);
+```
+
+ 
