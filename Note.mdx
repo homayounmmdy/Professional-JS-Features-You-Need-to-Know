@@ -352,14 +352,17 @@ for (let user of users) {
 
 # Operators : Logical Assignment
 
-```js 
+Logical Assignment Operators (&&= , ||=, ??=) combine logical operators with assignment
+simplifying common patterns for conditional assignment.
+
+```js
 let a = 1;
 a += 1;
 ```
 
 but have have same for other operations in previous version we wrote like below
 
-```js 
+```js
 let a = 1;
 a = a && 2;
 
@@ -369,17 +372,31 @@ b = b || 3;
 let c = undefined;
 c = c ?? 3;
 ```
- 
-in new version we wrote like this 
 
-```js 
+in new version we wrote like this
+
+```js
 let a = 1;
-a &= 2;
+a &&= 2;
 
 let b = null;
-b |= 3;
+b ||= 3;
 
 let c = undefined;
 c ??= 3;
 ```
 
+## Operators : Exponentiation
+
+The Exponentiation Operator (**) provides a concise way to perform exponentiation, similar to Math.pow.
+
+```js
+const result = Math.pow(2, 3);
+console.log(result);
+```
+this become like this
+
+```js
+const result = 2 ** 3;
+console.log(result);
+```
