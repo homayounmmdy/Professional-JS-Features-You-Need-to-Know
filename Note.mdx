@@ -424,7 +424,7 @@ console.log(instance.privateVar);
 
 Class fields declaration allow fields (public or private) to be declared in the class body, adding also private method.
 
-```js 
+```js Classes : Fields and Private Methods
 class MyClass {
 
   // Instance fields
@@ -444,3 +444,18 @@ console.log(instance.publicField);
 console.log(instance.getPrivateData());
 ```
 
+## Static Classes : Fields and Methods
+
+Static class fields and methods are defined on the class itself, rather than instance of the class.
+
+```js 
+class MyClass {
+  static staticField = 42;
+  static staticMethod() {
+    return "Hello";
+  }
+}
+
+console.log(MyClass.staticField);
+console.log(MyClass.staticMethod());
+```
