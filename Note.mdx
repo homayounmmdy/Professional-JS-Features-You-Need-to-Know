@@ -963,3 +963,29 @@ function giveMeHello() {
 var promise = giveMeHello();
 promise.then((message) => alert(message));
 ```
+
+## Async/Await
+
+syntax provides a way to work with asynchronous code in more
+synchronous fashion, making it easier to read and write.
+
+```js
+function doInSeconds(seconds, callback) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve("Success"), seconds * 1000);
+  });
+}
+
+console.log("Setting the alert in 2 seconds");
+
+async function start() {
+  try {
+    var value = await doInSeconds(2);
+    alert(value);
+  } catch (e) {
+    
+  }
+}
+
+start();
+```
