@@ -610,10 +610,10 @@ for (const [fullDate, year, month, day] of matches) {
 
 ## Numbers : Bight
 
-Bight is build-in object that provides a way to represent whole numbers larger than 2*53 -1,
+Bight is build-in object that provides a way to represent whole numbers larger than 2\*53 -1,
 which is the largest number JavaScript can reliably represent with the Number primitive.
 
-```js 
+```js
 const number = 10;
 const bigInt = 1234567890123456789012345678901234567890n;
 const result = bigInt + BigInt(number);
@@ -624,7 +624,7 @@ console.log(result);
 
 these are hel in validation and checking. Numeric separators improve the readability of large numeric literals by allowing underscores as seprators
 
-```js 
+```js
 console.log(Number.isFinite(123));
 console.log(Number.isInteger(123.456));
 console.log(Number.isSafeInteger(123));
@@ -637,3 +637,68 @@ console.log(Number.MIN_SAFE_INTEGER);
 const largeNumber = 1_000_000_000;
 console.log(largeNumber);
 ```
+
+# Array and Collection Enhancements
+
+- Iterators and for..of
+- Generators
+- Array Methods
+- Change Array by Copy
+- Set and Maps
+- Typed Arrays
+
+## ES6 Recap : New Collections
+
+Sets and WeakSets are collections of values. A value in the Set may only occur once: a map is a
+key-value of any pair of types. Weak versions only accept object and they do
+
+```js
+/*
+Use a Set to store unique values
+*/
+const set = new Set([1, 2, 2, 3, 4, { name: "Julia" }]);
+console.log("Set size:", set.size);
+
+// creating a new Map
+const myMap = new Map();
+
+// adding key-value pairs to the Map
+myMap.set("a", 1);
+myMap.set("b", 2);
+myMap.set(3, "three");
+myMap.set({ key: "objKey" }, "objectValue");
+
+// Accessing value by key
+console.log("Map a: ", myMap.get("a")); // 1
+console.log("Map 3: ", myMap.get(3)); // 'three'
+
+console.log("Map has b: ", myMap.has("b")); // 1
+
+/*
+Use a WeakSet to store objects with weak references
+*/
+
+const weakSet = new WeakSet([{name : "Julia"}]);
+let obj = {};
+weakSet.add(obj);
+```
+
+we have weak version of set and map for example when we create object 
+like this 
+```js 
+var object = {};
+var obj2 = object
+```
+
+in this example we have 1 object with two strong reference if we tomorrow we 
+turn the object into null like below 
+
+```js 
+var object = null;
+```
+we still have object in memory and if we do same for the obj2 the object will be 
+in memory and if garbage collector see that it will remove that but if we do not add 
+not remove reference it will never remove because it's strong reference while if we use 
+weakSet or weakMap when object lost it strong reference and have weak reference the garbage 
+collector will remove that object and wee see null for our weak reference.
+
