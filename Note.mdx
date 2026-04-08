@@ -556,10 +556,23 @@ console.log(result);
 ## String: Padding
 
 The padStart() and padEnd() methods pad to current string with another string until the resulting string reaches the given length.
-the second argument is the character that you wanna add with 
+the second argument is the character that you wanna add with
+
 ```js
 const str = "5";
-const paddedStart = str.padStart(5, '0');
-const paddedEnd = str.padEnd(5, '0');
+const paddedStart = str.padStart(5, "0");
+const paddedEnd = str.padEnd(5, "0");
 console.log(paddedStart, paddedEnd);
+```
+
+## String : Trimming
+
+The trimStart() and trimEnd() methods trim whitespace from the beginning and end of
+a string , respectively.
+
+```js
+const str = "   Hello    ";
+const trimmedStart = str.trimStart();
+const trimmedEnd = str.trimEnd();
+console.log(trimmedStart, trimmedEnd);
 ```
