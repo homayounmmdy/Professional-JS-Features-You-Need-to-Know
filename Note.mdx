@@ -771,13 +771,13 @@ for (const number of countdown) {
 }
 ```
 
-## Generators 
+## Generators
 
 Generators are special functions that can pause and resume their execution , allowing them to yield
 multiple values over time , making it easier to implement iterators and handle asynchronous programming.
 
-```js 
-function *generator() {
+```js
+function* generator() {
   yield 1;
   yield 2;
 }
@@ -791,12 +791,122 @@ class Countdown {
     for (let i = this.start; i >= 0; i--) {
       yield i;
     }
-   }
+  }
 }
 
 const countdown = new Countdown(5);
 
 for (const number of countdown) {
   console.log(number);
-} 
+}
+```
+
+## Array : includes
+
+method determines whether an array contain a certain element , returning true or false as appropriate.
+
+```js
+const fruits = ["apple", "banana", "mango"];
+console.log(fruits.includes("banana"));
+console.log(fruits.includes("grape"));
+```
+
+## Array : Flat
+
+method create a new array will all sub-array elements concatenated into it
+recursively up to the specified depth. The flatMap() method first map ach element
+using a mapping function, then flattens the result into new array. It is identical to a
+map followed by a flat of dept 1.
+
+```js
+// use the flat method to flatten the nested array
+const arr = [1, [2, [(3)[4]]]];
+const flattened = arr.flat(2);
+console.log("Flat", flattened);
+
+// use the flatMap to map and flatten the array
+const arr2 = [1, 2, 3, 4];
+const result = arr2.flatMap((x) => [x, x * 2]);
+console.log(result);
+```
+
+## Array : Finding
+
+Finding first element methods were added in ES6+ and the last element in 2023.
+
+```js
+// The find() method returns the value of first element
+const arr = [1, 2, 3, 4];
+const even = arr.find((x) => x % 2 === 0);
+console.log(even);
+
+// The findIndex() method returns the index of the first
+
+const arr2 = [1, 2, 3, 4];
+const evenIndex = arr2.findIndex((x) => x % 2 === 0);
+console.log(evenIndex);
+
+// The findLast method returns the value of last element
+
+const arr3 = [1, 2, 3, 4];
+const lastEvent = arr3.findLast((x) => x % 2 === 0);
+console.log(lastEvent);
+
+// The findLastIndex method returns the index of the last element
+
+const arr4 = [1, 2, 3, 4];
+const lastEvenIndex = arr4.findLastIndex((x) => x % 2 == 0);
+console.log(lastEvenIndex);
+```
+
+## Array : At()
+
+method takes an integer value and return the item at that index , allowing for positive and negative integers. Negative integers count back from the last item in the array.
+
+```js
+const arr = [1, 2, 3, 4];
+const lastElement = arr.at(-1);
+console.log(lastElement);
+```
+
+## Array : Stable Sort
+
+method in Javascript has been improved to be stable. This means that elements
+with equal sort order will remain in the same relative positions to each other as in the input array.
+
+```js
+const arr = [3, 1, 4, 1, 5, 9];
+arr.sort();
+console.log(arr);
+```
+
+## Array : Change by Copy
+
+introduced several array methods that create modified copies of the array without
+changing the original array. These methods include toReversed , toString , toSpliced and with.
+
+```js
+// toReversed method creates a new array with the element
+const numbers = [1, 2, 3];
+const reversedNumbers = numbers.toReversed();
+console.log(reversedNumbers);
+console.log(numbers);
+
+// toSorted method creates a new array with the elements
+const unsortedNumbers = [3, 1, 2];
+const sortedNumbers = unsortedNumbers.toSorted();
+console.log(sortedNumbers);
+console.log(unsortedNumbers);
+
+// toSpliced method creates a new array with some element
+const originalArray = [1, 2, 3, 4, 5];
+const splicedArray = originalArray.toSpliced(1, 2, "a", "b");
+console.log(splicedArray);
+console.log(originalArray);
+
+// with method creates a new array with an 
+// element at a specified index replaced
+const replacedArray = originalArray.with(2,10);
+console.log(replacedArray);
+console.log(originalArray);
 ```
