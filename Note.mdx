@@ -678,27 +678,63 @@ console.log("Map has b: ", myMap.has("b")); // 1
 Use a WeakSet to store objects with weak references
 */
 
-const weakSet = new WeakSet([{name : "Julia"}]);
+const weakSet = new WeakSet([{ name: "Julia" }]);
 let obj = {};
 weakSet.add(obj);
 ```
 
-we have weak version of set and map for example when we create object 
-like this 
-```js 
+we have weak version of set and map for example when we create object
+like this
+
+```js
 var object = {};
-var obj2 = object
+var obj2 = object;
 ```
 
-in this example we have 1 object with two strong reference if we tomorrow we 
-turn the object into null like below 
+in this example we have 1 object with two strong reference if we tomorrow we
+turn the object into null like below
 
-```js 
+```js
 var object = null;
 ```
-we still have object in memory and if we do same for the obj2 the object will be 
-in memory and if garbage collector see that it will remove that but if we do not add 
-not remove reference it will never remove because it's strong reference while if we use 
-weakSet or weakMap when object lost it strong reference and have weak reference the garbage 
+
+we still have object in memory and if we do same for the obj2 the object will be
+in memory and if garbage collector see that it will remove that but if we do not add
+not remove reference it will never remove because it's strong reference while if we use
+weakSet or weakMap when object lost it strong reference and have weak reference the garbage
 collector will remove that object and wee see null for our weak reference.
 
+## Arrays
+
+keys, values_entries , copywithin , and fill are ES6 additions to the Array prototype.
+
+```js
+// The keys method returns on iterator for the keys
+const arr = ["a", "b", "c"];
+const keys = arr.keys();
+for (let key of keys) {
+  console.log("keys:", key);
+}
+
+// The values method returns on iterator for the values
+const values = arr.values();
+for (let value of values) {
+  console.log("values", value);
+}
+// The entries method returns on iterator for the key/value
+const entries = arr.entries();
+for (let [index ,value] of entries) {
+  console.log(index , value);
+}
+
+// The copyWithin method copies part of the array to another
+const arr2 = [1,2,3,4,5];
+arr2.copyWithin(0,3);
+console.log("copyWithin", arr2);
+
+// The fill method changes all elements in the array to another
+const arr3 = [1,2,3,4,5];
+arr3.fill(0,2,4);
+console.log('fill', arr3);
+
+```
