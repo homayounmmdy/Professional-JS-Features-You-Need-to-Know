@@ -576,3 +576,34 @@ const trimmedStart = str.trimStart();
 const trimmedEnd = str.trimEnd();
 console.log(trimmedStart, trimmedEnd);
 ```
+
+## String : matchAll
+
+The matchAll() method returns an iterator of all results matching a string against a regular expression , including capturing groups
+
+```js
+const text = `
+  Lorem ipsum, dolor sit amet on 2021-03-15 consectetur adipisicing elit. Aliquam odio, ipsa
+  quis eveniet consequatur doloribus autem 2021-04-20 ipsum necessitatibus beatae
+  2021-06-30 expedita, delectus dolorem on 2021-05-10. Facere dolore provident labore
+  eos explicabo.
+`;
+
+const dateRegex = /\b(\d{4})-(\d{2})-(\d{2})\b/g;
+
+const matches = text.matchAll(dateRegex);
+
+for (const match of matches) {
+  console.log(`Found date: ${match[0]}`);
+  console.log(`Year: ${match[1]}, Moth: ${match[2]} , Day: ${match[3]}`);
+}
+```
+
+also you can destructure the for as well like below
+
+```js
+for (const [fullDate, year, month, day] of matches) {
+  console.log(`Found date: ${fullDay}`);
+  console.log(`Year: ${year}, Moth: ${month} , Day: ${day}`);
+}
+```
