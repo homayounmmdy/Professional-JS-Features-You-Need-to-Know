@@ -535,3 +535,19 @@ the `===` operator but with some difference with NaN values.
 console.log('is:', Object.is('foo', 'foo'));
 console.log('is:', Object.is([], []));
 ```
+## String method 
+
+New string method in ES6 include startsWith , endsWith() , and includes for easier
+string manipulation. The repeat() method construct and return a new string which copies 
+concatenated together.
+
+```js 
+const str = "Hello , world!";
+console.log(str.startsWith("Hello"));
+console.log(str.endsWith("world!"));
+console.log(str.includes("o", "w"));
+
+const original = 'abc';
+const result = original.repeat(3);
+console.log(result);
+```
