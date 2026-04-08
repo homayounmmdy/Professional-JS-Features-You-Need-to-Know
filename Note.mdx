@@ -419,3 +419,28 @@ class MyClass {
 const instance = new MyClass();
 console.log(instance.privateVar);
 ```
+
+## Classes : Fields and Private Methods
+
+Class fields declaration allow fields (public or private) to be declared in the class body, adding also private method.
+
+```js 
+class MyClass {
+
+  // Instance fields
+  publicFiled = 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dicta, amet dolore optio provident distinctio voluptates quisquam esse et?';
+  #privateField = 42;
+  #privateMethod {
+    return "Hello";
+  }
+
+  getPrivateData() {
+    return `${this.#privateField} - ${this.#privateMethod}`
+  }
+}
+
+const instance = new MyClass();
+console.log(instance.publicField);
+console.log(instance.getPrivateData());
+```
+
