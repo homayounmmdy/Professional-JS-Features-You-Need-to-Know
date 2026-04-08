@@ -349,3 +349,37 @@ for (let user of users) {
   console.log(city ?? `No city defined for ${user.name}`);
 }
 ```
+
+# Operators : Logical Assignment
+
+```js 
+let a = 1;
+a += 1;
+```
+
+but have have same for other operations in previous version we wrote like below
+
+```js 
+let a = 1;
+a = a && 2;
+
+let b = null;
+b = b || 3;
+
+let c = undefined;
+c = c ?? 3;
+```
+ 
+in new version we wrote like this 
+
+```js 
+let a = 1;
+a &= 2;
+
+let b = null;
+b |= 3;
+
+let c = undefined;
+c ??= 3;
+```
+
