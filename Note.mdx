@@ -723,18 +723,50 @@ for (let value of values) {
 }
 // The entries method returns on iterator for the key/value
 const entries = arr.entries();
-for (let [index ,value] of entries) {
-  console.log(index , value);
+for (let [index, value] of entries) {
+  console.log(index, value);
 }
 
 // The copyWithin method copies part of the array to another
-const arr2 = [1,2,3,4,5];
-arr2.copyWithin(0,3);
+const arr2 = [1, 2, 3, 4, 5];
+arr2.copyWithin(0, 3);
 console.log("copyWithin", arr2);
 
 // The fill method changes all elements in the array to another
-const arr3 = [1,2,3,4,5];
-arr3.fill(0,2,4);
-console.log('fill', arr3);
+const arr3 = [1, 2, 3, 4, 5];
+arr3.fill(0, 2, 4);
+console.log("fill", arr3);
+```
 
+## Iterators and for...of
+
+Iterators provide a way to access element of a collection one at a time. The for..of loop is a simple and
+concise way to iterate over iterable object like arrays , strings , maps , sets and more.
+
+```js
+class Countdown {
+  constructor(start) {
+    this.start = start;
+  }
+
+  [Symbol.iterator]() {
+    let current = this.start;
+
+    return {
+      next() {
+        if (current >= 0) {
+          return {value: current--; done : false}
+        } else {
+          return {value : undefined , done : true}
+        }
+      }
+    }
+  }
+}
+
+const countdown = new Countdown(5);
+
+for (const number of countdown) {
+  console.log(number);
+}
 ```
