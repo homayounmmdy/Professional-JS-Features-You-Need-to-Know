@@ -921,3 +921,45 @@ console.log(originalArray);
 - Advanced
   - Atomics
   - SharedArrayBuffer
+
+## Promises Recap
+
+provide a way to handle asynchronous operations. They represent a value that may be available now , or in the future or never.
+
+```js
+function doInSeconds(seconds, callback) {
+  setTimeout(callback, seconds * 1000);
+}
+
+console.log("Setting the alert in 2 seconds");
+doInSeconds(2, () => alert("2 second!"));
+```
+
+we can update that into promise like below
+
+```js
+function doInSeconds(seconds, callback) {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => resolve("Success"), seconds * 1000);
+  });
+}
+
+console.log("Setting the alert in 2 seconds");
+
+doInSeconds(2)
+  .then((value) => alert(value))
+  .catch((error) => alert(error));
+```
+
+and this another example of promise
+
+```js
+function giveMeHello() {
+  return new Promise((resolve, reject) => {
+    resolve("Hello");
+  });
+}
+
+var promise = giveMeHello();
+promise.then((message) => alert(message));
+```
