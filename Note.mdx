@@ -607,3 +607,15 @@ for (const [fullDate, year, month, day] of matches) {
   console.log(`Year: ${year}, Moth: ${month} , Day: ${day}`);
 }
 ```
+
+## Numbers : Bight
+
+Bight is build-in object that provides a way to represent whole numbers larger than 2*53 -1,
+which is the largest number JavaScript can reliably represent with the Number primitive.
+
+```js 
+const number = 10;
+const bigInt = 1234567890123456789012345678901234567890n;
+const result = bigInt + BigInt(number);
+console.log(result);
+```
