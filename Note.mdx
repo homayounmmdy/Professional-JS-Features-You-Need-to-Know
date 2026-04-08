@@ -1069,3 +1069,21 @@ function factorialPTC(n, acc = 1) {
 
 console.log(factorialPTC(5));
 ```
+
+## Proxies and Reflect API
+
+provides a way to intercept and customize operation on object ues Proxies,
+offering a set of static methods to manipulate object
+
+```js
+const target = { name: "Joseph" };
+const handler = {
+  get: (obj, prop) => {
+    console.log(`Trying to get "${prop}" from "${JSON.stringify(obj)}"`);
+    return Reflect.get(obj, prop) || "default";
+  }, 
+};
+
+const proxy = new Proxy(target, handler);
+console.log(`The name is ${proxy.name}`);
+```
