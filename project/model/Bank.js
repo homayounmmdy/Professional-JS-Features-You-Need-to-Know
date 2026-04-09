@@ -1,5 +1,5 @@
-import Account from "./Account";
-import Customer from "./Customer";
+import Account from "./Account.js";
+import Customer from "./Customer.js";
 
 class Bank {
   constructor(bankName) {
@@ -62,5 +62,4 @@ class Bank {
   }
 }
 
-
-export default Bank
+export default Bank;
