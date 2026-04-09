@@ -1171,3 +1171,12 @@ const registry = new FinalizationRegistry(heldValue => {
 
 registry.register(obj,'my object');
 ```
+
+## Import Metadata
+
+THe import meta object exposes context-specific metadata to a Javascript module,
+including the modules URL.
+
+```js
+console.log(import.meta.url)
+```
