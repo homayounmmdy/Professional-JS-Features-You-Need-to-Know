@@ -1121,31 +1121,53 @@ or something like below
 ```js
 class Product {
   name;
-  constructor(name , price) {
-    if (name?.length<2) {
-      throw new Error("Product can't be created.",
-        {cause : new Error("Name is invalid")}
-      );
-
+  constructor(name, price) {
+    if (name?.length < 2) {
+      throw new Error("Product can't be created.", {
+        cause: new Error("Name is invalid"),
+      });
     }
     this.name = name;
     try {
-      this.price = price *1.30  
-    }catch(e) {
-        throw new Error("Product can't be created",
-          {case : e }
-        )
-      }
+      this.price = price * 1.3;
+    } catch (e) {
+      throw new Error("Product can't be created", { case: e });
+    }
   }
 }
 ```
 
-## Hashbang Grammar 
+## Hashbang Grammar
 
-Hashbang Grammar allows a script to contain a shebang (#!) at the begging , indicating the 
+Hashbang Grammar allows a script to contain a shebang (#!) at the begging , indicating the
 script's interpreter to be executed directly from the terminal.
 
 ```js
 #!/usr/bin/env node
-console.log("Hello , world!")
+console.log("Hello , world!");
+```
+
+## WeakRefs and FinalizationRegistry
+
+Javascript introduced WeakRef and FinalizationRegistry to provide more control over
+garbage collection and manage memory usage more efficiently
+
+```js 
+let obj = {message: "Hello, world!"};
+const weakRef = new WeakRef(obj);
+```
+
+these feature used for VR , AI and dose run in browser that need heavy memory. if not release 
+memory you will get problem.
+
+The FinalizationRegistry is like event lister for garbage collector. 
+
+```js 
+let obj = {message: "Hello, world!"};
+
+const registry = new FinalizationRegistry(heldValue => {
+  console.log(`Object with held value ${heldValue} has`)
+});
+
+registry.register(obj,'my object');
 ```
