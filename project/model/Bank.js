@@ -60,6 +60,10 @@ class Bank {
     }
     console.log("-------------------------------");
   }
+
+  getCustomerByBankId() {
+    return Object.values(this.customers);
+  }
 }
 
 export default Bank;

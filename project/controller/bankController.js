@@ -5,7 +5,11 @@ export class BankController {
         this.bank = new Bank("My Bank");
     }
 
-    createCustomer(formData) {
+    createCustomer(userRole ,formData) {
+        if (!userRole.hasPermission("create_customer")) {
+            throw new Error("Access Denied Permission");
+        }
+
         return this.bank.createCustomer(
             formData.firstName,
             formData.lastName,
@@ -19,5 +23,13 @@ export class BankController {
 
     getAllCustomers() {
         return Object.values(this.bank.customers);
+    }
+
+    getCustomers(userRole , bankId) {
+        if (!userRole.hasPermission("view_bank_customers")) {
+            throw new Error("Access Denied Permission");
+        }
+
+        return this.bank.getCustomerByBankId(bankId);
     }
 }
