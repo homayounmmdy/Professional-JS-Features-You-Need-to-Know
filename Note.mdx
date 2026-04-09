@@ -1101,3 +1101,15 @@ console.log(obj[sym]);
 
 const globalSymbol = Symbol.for('description')
 ```
+
+## Error cause
+
+The Error cause property allows attaching a cause to an Error object, providing additional context for the error.
+
+```js 
+try {
+  throw new Error('Something went wrong', {cause : new Error})
+}catch(error) {
+  console.log(error.cause)
+}
+```
