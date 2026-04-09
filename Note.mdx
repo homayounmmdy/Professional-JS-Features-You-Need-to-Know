@@ -1152,24 +1152,24 @@ console.log("Hello , world!");
 Javascript introduced WeakRef and FinalizationRegistry to provide more control over
 garbage collection and manage memory usage more efficiently
 
-```js 
-let obj = {message: "Hello, world!"};
+```js
+let obj = { message: "Hello, world!" };
 const weakRef = new WeakRef(obj);
 ```
 
-these feature used for VR , AI and dose run in browser that need heavy memory. if not release 
+these feature used for VR , AI and dose run in browser that need heavy memory. if not release
 memory you will get problem.
 
-The FinalizationRegistry is like event lister for garbage collector. 
+The FinalizationRegistry is like event lister for garbage collector.
 
-```js 
-let obj = {message: "Hello, world!"};
+```js
+let obj = { message: "Hello, world!" };
 
-const registry = new FinalizationRegistry(heldValue => {
-  console.log(`Object with held value ${heldValue} has`)
+const registry = new FinalizationRegistry((heldValue) => {
+  console.log(`Object with held value ${heldValue} has`);
 });
 
-registry.register(obj,'my object');
+registry.register(obj, "my object");
 ```
 
 ## Import Metadata
@@ -1178,7 +1178,7 @@ THe import meta object exposes context-specific metadata to a Javascript module,
 including the modules URL.
 
 ```js
-console.log(import.meta.url)
+console.log(import.meta.url);
 ```
 
 ## Tagged Templates
@@ -1186,14 +1186,92 @@ console.log(import.meta.url)
 Provide a way to parse template literals with a function, allowing for custom
 processing of template string
 
-```js 
-function tag(string,...values) {
+```js
+function tag(string, ...values) {
   console.log("Strings length:", string.length);
   console.log("Values length:", values.length);
-  
-  return string[0] + value.join('');
-} 
-const value = 'world';
+
+  return string[0] + value.join("");
+}
+const value = "world";
 const result = tag`Hello, ${value}!`;
 console.log(result);
+```
+
+and this another example of $
+
+```js
+function format(strings, ...value) {
+  let output = "";
+  for (let i = 0; i < strings.length; i++) {
+    output += strings[i];
+    if (i < values.length) {
+      if (typeof values[i] == "number") {
+        output += `<i>${values[i]}</i>`;
+      } else {
+        output += `<b>${values[i]}</b>`;
+      }
+    }
+  }
+  return output;
+}
+
+const result = format`Data: ${"Maria"} has been working at ${"Apple"} for ${5} years.`;
+console.log(result);
+```
+
+## Regular Expressions Enhancements
+
+### dotAll
+
+a flag to match any character including line breaks
+
+```js
+let regex = /foo.bar/s;
+let result = regex.test("foo\nbar");
+console.log("s flag", result);
+```
+
+### The y flag (sticky)
+
+ensures that the match must start at the current position
+in the target string
+
+```js
+regex = /foo/y;
+str = "foofoo";
+console.log("y flag", regex.exec(str), regex.exec(str));
+```
+
+### Lookbehind assertions
+
+```js
+console.log("Positive lookbehind",
+  'foo123'.match(/(?<!bar)\d+);
+)
+```
+
+### capture group
+
+allow you to assign a name to capture 
+matched data more readable and accessible using <>.
+
+```js 
+regex = /(?<year>\d{4})-(?<month>\d{2})-(?<day>\d{2})/;
+result = regex.exec("2023-06-01");
+console.log("Named groups", result.group.year, result.group.month,
+  result.groups.day
+)
+```
+
+### Unicode property escapes flag
+
+allow matching Unicode character 
+
+```js 
+regex = /\p{Script=Greek}/u;
+console.log("Greek char", regex.test('a'));
+
+regex = /\p{P}/gu;
+console.log("Punctuation char", regex.test("Hello, World! @ 1234"))
 ```
