@@ -7,18 +7,26 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
     <link rel="stylesheet" href="./style.css"/>
+    <link rel="stylesheet" href="./login.css"/>
 </head>
 <body>
-    <div class="login-box">
-        <h2>Login</h2>
+    <div class="main_login">
+        <div class="login-box">
+            <h2>Login</h2>
 
-        <input id="username" name="username" placeholder="Username"/>
-        <input id="password" name="password" type="password" placeholder="Password"/>
+            <input id="username" name="username" placeholder="Username"/>
+            <input id="password" name="password" type="password" placeholder="Password"/>
 
-        <button id="loginBtn">login</button>
+            <button id="loginBtn">login</button>
 
-        <div id="error" class="error"></div>
+            <div id="error" class="error"></div>
+        </div>
+        <div class="login-table">
+            <h2>Roles Table</h2>
+            <table></table>
+        </div>
     </div>
+
 
     <script src="./login.js" type="module"></script>
 </body>

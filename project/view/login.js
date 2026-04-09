@@ -1,4 +1,27 @@
 import {AuthController} from "../controller/authController.js";
+import {seed} from "../data/seed.js";
+
+// fill the table
+document.querySelector('table').innerHTML =`
+    <thead>
+        <tr>
+            <th>Role</th>
+            <th>Password</th>
+        </tr>
+    </thead>
+    
+    <tbody>
+        ${seed.users.map(user => `
+        <tr>
+            <td>${user.role}</td>
+            <td>${user.password}</td>
+        </tr>
+        `).join("")}
+    </tbody>
+`;
+
+
+// do auth
 
 const auth = new AuthController();
 
@@ -15,4 +38,4 @@ document.querySelector('#loginBtn').addEventListener('click', () => {
     } catch (err) {
         document.getElementById("error").innerText = err.message;
     }
-})
+});

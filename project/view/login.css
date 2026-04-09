@@ -1,0 +1,11 @@
+.main_login {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+@media (min-width: 576px) {
+    .login-box,
+    .login-table {
+        width: 50%;
+    }
+}
