@@ -1,4 +1,4 @@
-import Bank from "../model/Bank";
+import Bank from "../model/Bank.js";
 
 export class CentralBankSystem {
     constructor() {

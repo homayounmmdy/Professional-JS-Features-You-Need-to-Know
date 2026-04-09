@@ -1,4 +1,4 @@
-import {Role} from "./Role";
+import {Role} from "./Role.js";
 
 export class CentralBank extends Role {
     constructor() {
