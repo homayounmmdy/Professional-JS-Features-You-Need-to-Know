@@ -1081,7 +1081,7 @@ const handler = {
   get: (obj, prop) => {
     console.log(`Trying to get "${prop}" from "${JSON.stringify(obj)}"`);
     return Reflect.get(obj, prop) || "default";
-  }, 
+  },
 };
 
 const proxy = new Proxy(target, handler);
@@ -1092,24 +1092,50 @@ console.log(`The name is ${proxy.name}`);
 
 Symbols are unique and immutable primitive values, often used to create unique property keys for objects.
 
-```js 
+```js
 const sym = Symbol("description");
 const obj = {
-  [sym] : 'value'
-} 
+  [sym]: "value",
+};
 console.log(obj[sym]);
 
-const globalSymbol = Symbol.for('description')
+const globalSymbol = Symbol.for("description");
 ```
 
 ## Error cause
 
 The Error cause property allows attaching a cause to an Error object, providing additional context for the error.
 
-```js 
+```js
 try {
-  throw new Error('Something went wrong', {cause : new Error})
-}catch(error) {
-  console.log(error.cause)
+  throw new Error("Something went wrong", {
+    cause: new Error("Original error"),
+  });
+} catch (error) {
+  console.log(error.cause);
+}
+```
+
+or something like below
+
+```js
+class Product {
+  name;
+  constructor(name , price) {
+    if (name?.length<2) {
+      throw new Error("Product can't be created.",
+        {cause : new Error("Name is invalid")}
+      );
+
+    }
+    this.name = name;
+    try {
+      this.price = price *1.30  
+    }catch(e) {
+        throw new Error("Product can't be created",
+          {case : e }
+        )
+      }
+  }
 }
 ```
