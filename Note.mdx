@@ -1180,3 +1180,20 @@ including the modules URL.
 ```js
 console.log(import.meta.url)
 ```
+
+## Tagged Templates
+
+Provide a way to parse template literals with a function, allowing for custom
+processing of template string
+
+```js 
+function tag(string,...values) {
+  console.log("Strings length:", string.length);
+  console.log("Values length:", values.length);
+  
+  return string[0] + value.join('');
+} 
+const value = 'world';
+const result = tag`Hello, ${value}!`;
+console.log(result);
+```
