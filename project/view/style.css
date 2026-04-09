@@ -26,11 +26,17 @@ table {
 thead {
     background: #f0f0f0;
 }
+
 th, td {
     padding: 10px;
     border: 1px solid #ccc;
     text-align: left;
 }
+
 tbody tr:nth-child(even) {
     background: #fafafa;
+}
+
+.error {
+    color: red;
 }
