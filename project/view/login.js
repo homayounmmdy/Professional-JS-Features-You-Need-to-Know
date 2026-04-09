@@ -57,6 +57,9 @@ document.querySelector('#loginBtn').addEventListener('click', () => {
         localStorage.setItem("user", JSON.stringify(loggedUser));
 
         window.location.href = "dashboard.html";
+
+        usernameEL.value = "";
+        passwordEL.value = "";
     } catch (err) {
         document.getElementById("error").innerText = err.message;
     }
