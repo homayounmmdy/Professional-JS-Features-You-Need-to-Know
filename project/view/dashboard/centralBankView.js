@@ -34,23 +34,23 @@ const customersTable = document.querySelector(".customers-table tbody");
 
 customersTable.innerHTML = "";
 
-seed.customers.forEach((user) => {
+seed.customers.forEach((customer) => {
   const row = document.createElement("tr");
 
   const Id = document.createElement("td");
-  Id.textContent = user.customerId;
+  Id.textContent = customer.customerId;
   row.appendChild(Id);
 
   const name = document.createElement("td");
-  name.textContent = `${user.firstName} ${user.lastName}`;
+  name.textContent = `${customer.firstName} ${customer.lastName}`;
   row.appendChild(name);
 
   const dob = document.createElement("td");
-  dob.textContent = user.dob;
+  dob.textContent = customer.dob;
   row.appendChild(dob);
 
   const bankId = document.createElement("td");
-  bankId.textContent = user.bankId;
+  bankId.textContent = customer.bankId;
   row.appendChild(bankId);
 
   customersTable.appendChild(row);
