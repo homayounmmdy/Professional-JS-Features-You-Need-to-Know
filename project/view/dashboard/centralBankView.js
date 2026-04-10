@@ -16,8 +16,9 @@ const banksTable = document.querySelector(".banks-table tbody");
 
 banksTable.innerHTML = "";
 
-seed.banks.forEach((bank) => {
+seed.banks.forEach((bank, index) => {
   const row = document.createElement("tr");
+  row.dataset.row = `data-row-${index}`;
 
   const bankId = document.createElement("td");
   bankId.textContent = bank.bankId;
@@ -26,6 +27,22 @@ seed.banks.forEach((bank) => {
   const bankName = document.createElement("td");
   bankName.textContent = bank.name;
   row.appendChild(bankName);
+
+  // Count customers for the current bank
+  const customerCount = seed.customers.filter(
+    (c) => c.bankId === bank.bankId,
+  ).length;
+  const customersCell = document.createElement("td");
+  customersCell.textContent = customerCount;
+  row.appendChild(customersCell);
+
+  // Count accounts for the current bank
+  const accountCount = seed.accounts.filter(
+    (a) => a.bankId === bank.bankId,
+  ).length;
+  const accountsCell = document.createElement("td");
+  accountsCell.textContent = accountCount;
+  row.appendChild(accountsCell);
 
   banksTable.appendChild(row);
 });

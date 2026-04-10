@@ -70,5 +70,11 @@ export const seed = {
       customerId: "C3",
       bankId: "B1",
     },
+    {
+      accountNumber: 1003,
+      balance: 100,
+      customerId: "C3",
+      bankId: "B1",
+    },
   ],
 };
