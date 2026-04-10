@@ -56,7 +56,7 @@ document.querySelector('#loginBtn').addEventListener('click', () => {
 
         localStorage.setItem("user", JSON.stringify(loggedUser));
 
-        window.location.href = "dashboard.html";
+        window.location.href = "./dashboard/dashboard.html";
 
         usernameEL.value = "";
         passwordEL.value = "";

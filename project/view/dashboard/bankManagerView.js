@@ -12,3 +12,9 @@ if (storedUser.role === "bank_manager" && userRole.bankId) {
 } else {
   document.getElementById("mangerBank").innerText = "Bank manger";
 }
+
+document.querySelector(".logout-btn").addEventListener("click" , () => {
+    localStorage.removeItem("user");
+    console.log(window.location.origin)
+    window.location.href = window.location.origin + "/project/view/login.html";
+});
