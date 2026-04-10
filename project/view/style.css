@@ -40,3 +40,10 @@ tbody tr:nth-child(even) {
 .error {
     color: red;
 }
+
+.grid-2x2 {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
