@@ -1,18 +1,24 @@
 import Account from "./Account.js";
 import Customer from "./Customer.js";
+let nextCustomerId = 1;
 
 class Bank {
-  constructor(bankName) {
+  constructor(name, bankName) {
     this.bankName = bankName;
+    this.name = name;
     this.customers = {};
     this.accounts = {};
-    this.nextCustomerId = 1;
-    this.nextAccountNumber = 1001;
   }
 
-  createCustomer(firstName, lastName, dob) {
-    const customerId = `C${this.nextAccountNumber++}`;
-    const newCustomer = new Customer(customerId, firstName, lastName, dob);
+  createCustomer(firstName, lastName, dob, bankId) {
+    const customerId = "C" + nextAccountNumber++;
+    const newCustomer = new Customer(
+      customerId,
+      firstName,
+      lastName,
+      dob,
+      bankId,
+    );
     this.customers[customerId] = newCustomer;
     console.log(
       `Customer ${newCustomer.getFullName()} created with ID: ${customerId}`,
@@ -21,22 +27,34 @@ class Bank {
   }
 
   createAccount(customerId, initialBalance = 0) {
-    if (!this.customers[customerId]) {
-      console.log(`Error: Customer with ID ${customerId} not found`);
-      return null;
+    const customer = this.customers[customerId];
+    if (!customer) {
+      throw new Error(`Customer with ID ${customerId} not found in this bank.`);
     }
-    const accountNumber = `${this.nextAccountNumber++}`;
-    const newAccount = new Account(accountNumber, initialBalance, customerId);
+    const accountNumber = Math.floor(1000 + Math.random() * 9000); // شماره حساب تصادفی
+    const newAccount = new Account(
+      accountNumber,
+      customerId,
+      balance,
+      this.bankId,
+    );
     this.accounts[accountNumber] = newAccount;
-    this.customers[customerId].addAccount(newAccount);
     console.log(
       `Account ${accountNumber} created for customer ${customerId} with initial balance ${initialBalance}.`,
     );
     return newAccount;
   }
 
-  findCustomerById(customerId) {
+  getCustomerById(customerId) {
     return this.customers[customerId] || null;
+  }
+
+  getCustomers() {
+    return Object.values(this.customers) || null;
+  }
+
+  getAccounts() {
+    return Object.values(this.accounts) || null;
   }
 
   findAccountByNumber(accountNumber) {

@@ -1,11 +1,16 @@
-import {Role} from "./Role.js";
+import { Role } from "./Role.js";
 
 export class CentralBank extends Role {
-    constructor() {
-        super("Central_bank");
-    }
-
-    hasPermission(action) {
-        return true; // has permission for everything
-    }
+  constructor() {
+    super();
+    this.role = "central_bank";
+    this.permissions = [
+      "view_all_banks",
+      "view_all_customers",
+      "view_all_accounts",
+      "create_bank",
+      "create_customer",
+      "view_bank_customers",
+    ];
+  }
 }

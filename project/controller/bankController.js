@@ -1,35 +1,64 @@
-import Bank from "../model/Bank.js";
+let centralBankSystemInstance;
 
+export function setCentralBankSystem(instance) {
+  centralBankSystemInstance = instance;
+}
 export class BankController {
-    constructor() {
-        this.bank = new Bank("My Bank");
+  constructor() {
+    if (!centralBankSystemInstance) {
+      throw new Error("CentralBankSystem is not initialized!");
+    }
+    this.centralBankSystem = centralBankSystemInstance;
+  }
+
+  createCustomer(userRole, formData) {
+    if (!userRole.hasPermission("create_customer")) {
+      throw new Error("Access Denied Permission");
+    }
+    const bank = this.centralBankSystem.getBankById(userRole.bankId);
+    if (!bank) {
+      throw new Error(`Bank with ID ${userRole.bankId} not found.`);
     }
 
-    createCustomer(userRole ,formData) {
-        if (!userRole.hasPermission("create_customer")) {
-            throw new Error("Access Denied Permission");
-        }
+    return bank.createCustomer(
+      formData.firstName,
+      formData.lastName,
+      formData.dob,
+      userRole.bankId,
+    );
+  }
 
-        return this.bank.createCustomer(
-            formData.firstName,
-            formData.lastName,
-            formData.dob
-        )
+  createAccount(customerId, balance) {
+    return this.bank.createAccount(customerId, balance);
+  }
+
+  getAllCustomers() {
+    let allCustomers = [];
+    for (const bankId in this.centralBankSystem.banks) {
+      const bank = this.centralBankSystem.banks[bankId];
+      allCustomers.push(...bank.getCustomers());
+    }
+    return allCustomers;
+  }
+
+  getCustomers(userRole, bankId) {
+    if (!userRole.hasPermission("view_bank_customers")) {
+      throw new Error("Access Denied Permission");
     }
 
-    createAccount(customerId, balance) {
-        return this.bank.createAccount(customerId , balance)
+    if (userRole.bankId !== bankId) {
+      if (userRole.role !== "central_bank") {
+        throw new Error(
+          "Access Denied: You can only view customers of your own bank.",
+        );
+      }
     }
 
-    getAllCustomers() {
-        return Object.values(this.bank.customers);
+    const bank = this.centralBankSystem.getBankById(bankId);
+    if (!bank) {
+      throw new Error(`Bank with ID ${bankId} not found.`);
     }
 
-    getCustomers(userRole , bankId) {
-        if (!userRole.hasPermission("view_bank_customers")) {
-            throw new Error("Access Denied Permission");
-        }
-
-        return this.bank.getCustomerByBankId(bankId);
-    }
+    return bank.getCustomers();
+  }
 }

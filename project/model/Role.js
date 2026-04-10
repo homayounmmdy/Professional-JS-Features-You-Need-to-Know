@@ -1,9 +1,9 @@
 export class Role {
-    constructor(roleName) {
-        this.roleName = roleName;
-    }
+  constructor() {
+    this.permissions = [];
+  }
 
-    hasPermission(action) {
-        return false; // No permission
-    }
+  hasPermission(action) {
+    return this.permissions.includes(action);
+  }
 }
