@@ -20,50 +20,47 @@ document.querySelector(".logout-btn").addEventListener("click", () => {
   window.location.href = window.location.origin + "/project/view/login.html";
 });
 
-const customersTable = document.querySelector(".customers-table tbody");
+document.addEventListener("indexedDBReady", loadPageData);
 
-customersTable.innerHTML = "";
+async function loadPageData() {
+  const bankId = storedUser.roleObject.bankId;
 
-seed.customers.forEach((customer) => {
-  if (customer.bankId === storedUser.roleObject.bankId) {
-    const row = document.createElement("tr");
+  // Fetch from IDB
+  const customers = await window.getCustomersFromDB();
+  const accounts = await window.getAccountsFromDB();
 
-    const Id = document.createElement("td");
-    Id.textContent = customer.customerId;
-    row.appendChild(Id);
+  const customersTable = document.querySelector(".customers-table tbody");
+  customersTable.innerHTML = "";
 
-    const name = document.createElement("td");
-    name.textContent = `${customer.firstName} ${customer.lastName}`;
-    row.appendChild(name);
+  customers
+    .filter((c) => c.bankId === bankId)
+    .forEach((customer) => {
+      const row = document.createElement("tr");
 
-    const dob = document.createElement("td");
-    dob.textContent = customer.dob;
-    row.appendChild(dob);
+      row.innerHTML = `
+        <td>${customer.customerId}</td>
+        <td>${customer.firstName} ${customer.lastName}</td>
+        <td>${customer.dob}</td>
+      `;
 
-    customersTable.appendChild(row);
-  }
-});
+      customersTable.appendChild(row);
+    });
 
-const accountsTable = document.querySelector(".accounts-table tbody");
+  const accountsTable = document.querySelector(".accounts-table tbody");
+  accountsTable.innerHTML = "";
 
-accountsTable.innerHTML = "";
+  accounts
+    .filter((a) => a.bankId === bankId)
+    .forEach((account) => {
+      const row = document.createElement("tr");
 
-seed.accounts.forEach((account) => {
-  if (account.bankId === storedUser.roleObject.bankId) {
-    const row = document.createElement("tr");
+      row.innerHTML = `
+        <td>${account.accountNumber}</td>
+        <td>${account.balance}</td>
+        <td>${account.customerId}</td>
+      `;
 
-    const accountNumber = document.createElement("td");
-    accountNumber.textContent = account.accountNumber;
-    row.appendChild(accountNumber);
+      accountsTable.appendChild(row);
+    });
+}
 
-    const balance = document.createElement("td");
-    balance.textContent = account.balance;
-    row.appendChild(balance);
-
-    const customerId = document.createElement("td");
-    customerId.textContent = account.customerId;
-    row.appendChild(customerId);
-
-    accountsTable.appendChild(row);
-  }
-});
