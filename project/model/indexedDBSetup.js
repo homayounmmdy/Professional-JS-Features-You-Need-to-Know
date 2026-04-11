@@ -1,8 +1,8 @@
 import { seed } from "../data/seed.js";
 
 // ==== CONFIG ====
-const DB_NAME = "centralBankDB";
-const DB_VERSION = 1;   
+const DB_NAME = "BankDB";
+const DB_VERSION = 1;
 
 let db;
 
@@ -41,8 +41,6 @@ function openDB() {
   });
 }
 
-
-
 // ==== ADD DATA ====
 
 function addDataToDB(storeName, data) {
@@ -50,13 +48,12 @@ function addDataToDB(storeName, data) {
     const tx = db.transaction([storeName], "readwrite");
     const store = tx.objectStore(storeName);
 
-    data.forEach(item => store.put(item));
+    data.forEach((item) => store.put(item));
 
     tx.oncomplete = resolve;
     tx.onerror = () => reject("Failed inserting to " + storeName);
   });
 }
-
 
 // ==== INITIALIZE ====
 
@@ -89,11 +86,10 @@ async function initializeIndexedDB() {
     console.error("Initialization failed:", err);
 
     document.dispatchEvent(
-      new CustomEvent("indexedDBReady", { detail: { error: err } })
+      new CustomEvent("indexedDBReady", { detail: { error: err } }),
     );
   }
 }
-
 
 // ==== FETCH HELPERS ====
 
@@ -140,6 +136,59 @@ window.getAccountsFromDB = () => {
     req.onerror = () => reject("Error getting accounts");
   });
 };
+
+window.updateBankInDB = (bankId, updatedData) => {
+  return new Promise((resolve, reject) => {
+    if (!db) {
+      console.error("IndexedDB is not open or ready.");
+      return reject("IndexedDB is not ready.");
+    }
+
+    const transaction = db.transaction(["banks"], "readwrite");
+    const bankStore = transaction.objectStore("banks");
+
+    // Fetch the existing bank to merge with updatedData
+    const getRequest = bankStore.get(bankId);
+
+    getRequest.onsuccess = (event) => {
+      const existingBank = event.target.result;
+      if (!existingBank) {
+        reject(`Bank with ID ${bankId} not found.`);
+        return;
+      }
+
+      const mergedBank = { ...existingBank, ...updatedData };
+
+      // Update the bank - REMOVE the second argument (bankId)
+      // because 'banks' store uses in-line keys (keyPath: "bankId")
+      const updateRequest = bankStore.put(mergedBank);
+
+      updateRequest.onsuccess = () => {
+        console.log(`Bank with ID ${bankId} updated successfully.`);
+      };
+      updateRequest.onerror = (event) => {
+        console.error("Error updating bank:", event.target.error);
+        reject("Error updating bank: " + event.target.error);
+      };
+    };
+
+    getRequest.onerror = (event) => {
+      console.error("Error fetching bank for update:", event.target.error);
+      reject("Error fetching bank for update: " + event.target.error);
+    };
+
+    transaction.oncomplete = () => {
+      console.log("Bank update transaction completed.");
+      resolve();
+    };
+    transaction.onerror = (event) => {
+      console.error("Transaction error:", event.target.error);
+      reject("Transaction error: " + event.target.error);
+    };
+  });
+};
+
+
 
 
 // ==== START ====

@@ -12,10 +12,12 @@
   <table class="banks-table">
     <thead>
       <tr>
-        <th>bankId</th>
-        <th>name</th>
-        <th>customers</th>
-        <th>accounts</th>
+        <th>Bank ID</th>
+        <th>Bank Name</th>
+        <th># Customers</th>
+        <th># Accounts</th>
+        <th>Actions</th>
+        <!-- New column header -->
       </tr>
     </thead>
     <tbody></tbody>
@@ -49,3 +51,28 @@
     <tbody></tbody>
   </table>
 </section>
+
+<div id="editBankModal" class="modal">
+  <div class="modal-content">
+    <span class="close-button">&times;</span>
+    <h2>Edit Bank</h2>
+    <form id="editBankForm">
+      <input type="hidden" id="editBankId" />
+      <label for="editBankName">Bank Name:</label><br />
+      <input
+        type="text"
+        id="editBankName"
+        name="bankName"
+      /><br /><br />
+
+      <label for="editBankIdInput">Bank ID:</label><br />
+      <input
+        type="text"
+        id="editBankIdInput"
+        name="bankId"
+      /><br /><br />
+
+      <button type="submit">Save Changes</button>
+    </form>
+  </div>
+</div>
