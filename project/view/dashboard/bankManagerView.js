@@ -1,5 +1,3 @@
-import { seed } from "../../data/seed.js";
-
 const storedUser = JSON.parse(localStorage.getItem("user"));
 
 if (!storedUser || !storedUser.roleObject) {
@@ -63,4 +61,3 @@ async function loadPageData() {
       accountsTable.appendChild(row);
     });
 }
-

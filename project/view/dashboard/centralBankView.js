@@ -1,5 +1,3 @@
-import { seed } from "../../data/seed.js";
-
 const storedUser = JSON.parse(localStorage.getItem("user"));
 
 if (!storedUser || !storedUser.roleObject) {
@@ -12,89 +10,59 @@ document.querySelector(".logout-btn").addEventListener("click", () => {
   window.location.href = window.location.origin + "/project/view/login.html";
 });
 
-const banksTable = document.querySelector(".banks-table tbody");
+document.addEventListener("indexedDBReady", loadPageData);
 
-banksTable.innerHTML = "";
+async function loadPageData() {
+  // Fetch from IDB
+  const banks = await window.getBanksFromDB();
+  const customers = await window.getCustomersFromDB();
+  const accounts = await window.getAccountsFromDB();
 
-seed.banks.forEach((bank, index) => {
-  const row = document.createElement("tr");
-  row.dataset.row = `data-row-${index}`;
+  const banksTable = document.querySelector(".banks-table tbody");
+  banksTable.innerHTML = "";
 
-  const bankId = document.createElement("td");
-  bankId.textContent = bank.bankId;
-  row.appendChild(bankId);
+  banks.forEach((bank) => {
+    const row = document.createElement("tr");
 
-  const bankName = document.createElement("td");
-  bankName.textContent = bank.name;
-  row.appendChild(bankName);
+    row.innerHTML = `
+        <td>${bank.bankId}</td>
+        <td>${bank.name}</td>
+        <td>${customers.filter((c) => c.bankId === bank.bankId).length}</td>
+        <td>${accounts.filter((a) => a.bankId === bank.bankId).length}</td>
+      `;
 
-  // Count customers for the current bank
-  const customerCount = seed.customers.filter(
-    (c) => c.bankId === bank.bankId,
-  ).length;
-  const customersCell = document.createElement("td");
-  customersCell.textContent = customerCount;
-  row.appendChild(customersCell);
+    banksTable.appendChild(row);
+  });
 
-  // Count accounts for the current bank
-  const accountCount = seed.accounts.filter(
-    (a) => a.bankId === bank.bankId,
-  ).length;
-  const accountsCell = document.createElement("td");
-  accountsCell.textContent = accountCount;
-  row.appendChild(accountsCell);
+  const customersTable = document.querySelector(".customers-table tbody");
+  customersTable.innerHTML = "";
 
-  banksTable.appendChild(row);
-});
+  customers.forEach((customer) => {
+    const row = document.createElement("tr");
 
-const customersTable = document.querySelector(".customers-table tbody");
+    row.innerHTML = `
+        <td>${customer.customerId}</td>
+        <td>${customer.firstName} ${customer.lastName}</td>
+        <td>${customer.dob}</td>
+        <td>${customer.bankId}</td>
+      `;
 
-customersTable.innerHTML = "";
+    customersTable.appendChild(row);
+  });
 
-seed.customers.forEach((customer) => {
-  const row = document.createElement("tr");
+  const accountsTable = document.querySelector(".accounts-table tbody");
+  accountsTable.innerHTML = "";
 
-  const Id = document.createElement("td");
-  Id.textContent = customer.customerId;
-  row.appendChild(Id);
+  accounts.forEach((account) => {
+    const row = document.createElement("tr");
 
-  const name = document.createElement("td");
-  name.textContent = `${customer.firstName} ${customer.lastName}`;
-  row.appendChild(name);
+    row.innerHTML = `
+        <td>${account.accountNumber}</td>
+        <td>${account.balance}</td>
+        <td>${account.customerId}</td>
+        <td>${account.bankId}</td>
+      `;
 
-  const dob = document.createElement("td");
-  dob.textContent = customer.dob;
-  row.appendChild(dob);
-
-  const bankId = document.createElement("td");
-  bankId.textContent = customer.bankId;
-  row.appendChild(bankId);
-
-  customersTable.appendChild(row);
-});
-
-const accountsTable = document.querySelector(".accounts-table tbody");
-
-accountsTable.innerHTML = "";
-
-seed.accounts.forEach((account) => {
-  const row = document.createElement("tr");
-
-  const accountNumber = document.createElement("td");
-  accountNumber.textContent = account.accountNumber;
-  row.appendChild(accountNumber);
-
-  const balance = document.createElement("td");
-  balance.textContent = account.balance;
-  row.appendChild(balance);
-
-  const customerId = document.createElement("td");
-  customerId.textContent = account.customerId;
-  row.appendChild(customerId);
-
-  const bankId = document.createElement("td");
-  bankId.textContent = account.bankId;
-  row.appendChild(bankId);
-
-  accountsTable.appendChild(row);
-});
+    accountsTable.appendChild(row);
+  });
+}
