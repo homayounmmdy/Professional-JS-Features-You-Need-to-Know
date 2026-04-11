@@ -19,6 +19,14 @@ function loadData(file) {
     .then((htmlData) => {
       content.innerHTML = htmlData;
 
+      const indexDBScript = document.createElement("script");
+      indexDBScript.src = `../../model/indexedDBSetup.js`;
+      indexDBScript.type = "module";
+      indexDBScript.onerror = () => {
+        console.error(`Error loading indexedDBSetup.js`);
+      };
+      document.body.appendChild(indexDBScript);
+
       const script = document.createElement("script");
       script.src = `./${file}.js`;
       script.type = "module";
